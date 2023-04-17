@@ -1,0 +1,23 @@
+{
+	"name": "Ubuntu",
+	"image": "jupyter/datascience-notebook:latest",
+	"features": {},
+	"forwardPorts": [8888],
+	"portsAttributes": {
+		"8888": {
+			"label": "Jupyter",
+			"requireLocalPort": true,
+			"onAutoForward": "ignore"
+		}
+	},
+	"postCreateCommand": "julia ./.devcontainer/init.jl",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-toolsai.jupyter",
+				"julialang.language-julia",
+				"ms-python.python"
+			]
+		}
+	}
+}
