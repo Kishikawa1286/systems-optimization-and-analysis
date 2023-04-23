@@ -19,20 +19,13 @@
 \end{flushright}
 
 \begin{align}
-	\rchi_{( \tilde{A} )_h}(x) =
-	\begin{cases}
-		1 & \text{if} ~~~ x \in ( \tilde{A} )_h, \\
-		0 & \text{otherwise}.
-	\end{cases}
-\end{align}
-
-\begin{align}
 	 & \sup_{h \in [0, 1]} \min \left( h, \rchi_{( \tilde{A} )_h}(x) \right)
 	\\
 	 & = \max \left(
 	\sup_{h \in \left[ 0, \mu_{\tilde{A}}(x) \right)} \min \left( h, \rchi_{\left( \tilde{A}_h \right)}(x) \right), ~~~~
 	\sup_{h \in \left[ \mu_{\tilde{A}}(x), 1 \right]} \min \left( h, \rchi_{\left( \tilde{A}_h \right)}(x) \right)
-	\right)
+	\right) ~~~~
+	\left( h = \mu_{\tilde{A}}(x) ~ \text{で} ~ x \not\in ( \tilde{A} )_h ~ \text{に注意して分割} \right)
 	\\
 	 & = \max \left(
 	\sup_{h \in \left[ 0, \mu_{\tilde{A}}(x) \right)} \min \left( h, 1 \right), ~~~~
@@ -48,11 +41,14 @@
 	\\
 	 & = \max \left(
 	\sup_{h \in \left[ 0, \mu_{\tilde{A}}(x) \right)} h, ~~ 0
-	\right)
+	\right) ~~~~
+	\left( h \in \left[ \mu_{\tilde{A}}(x), 1 \right] \subseteq \left[ 0, 1 \right] ~ \text{なので} ~ h \geq 0 \right)
 	\\
 	 & = \max \left( \mu_{\tilde{A}}(x), ~~ 0 \right)
 	\\
 	 & = \mu_{\tilde{A}}(x)
 \end{align}
+
+$\mu_{\tilde{A}}(x) = \sup_{h \in [0, 1]} \min \left( h, \rchi_{( \tilde{A} )_h}(x) \right)$ が示された．
 
 \end{document}
