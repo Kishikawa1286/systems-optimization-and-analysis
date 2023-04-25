@@ -1,0 +1,134 @@
+\documentclass[uplatex, a4j, 10pt, fleqn, dvipdfmx]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[top=3cm, bottom=3cm, left=1cm, right=1cm]{geometry}
+
+% See: https://tex.stackexchange.com/questions/103885/how-to-type-an-inline-chi-in-latex
+\newcommand{\irchi}[2]{\raisebox{\depth}{$#1\chi$}}
+\DeclareRobustCommand{\rchi}{{\mathpalette\irchi\relax}}
+
+\begin{document}
+
+\begin{center}
+	{\Huge システム計画論 第 3 回 課題}
+\end{center}
+
+\begin{flushright}
+	{\Large \today ~~~~ 29C23002 ~~~ 石川健太郎}
+\end{flushright}
+
+\section*{[ 3a ]}
+
+\noindent
+$N = \{ 1, 2, \dots, n \}, ~~ N^- = \{ i \in N ~ | ~ k_i < 0 \}, ~~ N^+ = \{ i \in N ~ | ~ k_i \geq 0 \}$ とする．
+\begin{align}
+	\sum_{i \in N} k_i A_i
+	 & = \sum_{i \in N^-} k_i A_i + \sum_{i \in N^+} k_i A_i
+	\\
+	 & = - \sum_{i \in N^-} \left| k_i \right| A_i + \sum_{i \in N^+} \left| k_i \right| A_i
+	\\
+	 & = - \sum_{i \in N^-} \left[ \left| k_i \right| a_i^\text{L}, ~ \left| k_i \right| a_i^\text{R} \right] +
+	\sum_{i \in N^+} \left[ \left| k_i \right| a_i^\text{L}, ~ \left| k_i \right| a_i^\text{R} \right]
+	\\
+	 & = - \left[
+		\sum_{i \in N^-} \left| k_i \right| a_i^\text{L}, ~ \sum_{i \in N^-} \left| k_i \right| a_i^\text{R}
+		\right] + \left[
+		\sum_{i \in N^+} \left| k_i \right| a_i^\text{L}, ~ \sum_{i \in N^+} \left| k_i \right| a_i^\text{R}
+		\right]
+	\\
+	 & = \left[
+		- \sum_{i \in N^-} \left| k_i \right| a_i^\text{R}, ~ - \sum_{i \in N^-} \left| k_i \right| a_i^\text{L}
+		\right] + \left[
+		\sum_{i \in N^+} \left| k_i \right| a_i^\text{L}, ~ \sum_{i \in N^+} \left| k_i \right| a_i^\text{R}
+		\right]
+	\\
+	 & = \left[
+		\sum_{i \in N^+} \left| k_i \right| a_i^\text{L} - \sum_{i \in N^-} \left| k_i \right| a_i^\text{R}, ~
+		\sum_{i \in N^+} \left| k_i \right| a_i^\text{R} - \sum_{i \in N^-} \left| k_i \right| a_i^\text{L}, ~
+		\right]
+\end{align}
+
+% https://slideplayer.com/slide/5937402/
+\section*{[ 3b ]}
+
+\noindent
+まず， $\left( f \left( \tilde{A}_1, \tilde{A}_2 \right) \right)_h \supseteq
+	f \left( ( \tilde{A}_1 )_h, ( \tilde{A}_2 )_h \right)$ を示す．
+
+\noindent
+$y \in f \left( ( \tilde{A}_1 )_h, ( \tilde{A}_2 )_h \right)$ とする．
+
+\noindent
+$y$ の定義から任意の $y$ に対して $y = f \left( \bar{x}_1, \bar{x}_2 \right)$ を満たす
+$\bar{x}_1 \in ( \tilde{A} )_h, ~ \bar{x}_2 \in ( \tilde{A} )_h$ が存在するので，
+任意の $y$ について $f^{-1}(y) \neq \emptyset$ である．
+
+\noindent
+よって，拡張原理から次の関係が成り立つ．
+\begin{align}
+	\mu_{f \left( \tilde{A}_1, \tilde{A}_2 \right)}(y)
+	 & = \sup_{\left( x_1, x_2 \right) \in f^{-1}(y)} \min \left( \mu_{\tilde{A}_1}(x_1), \mu_{\tilde{A}_2}(x_2) \right)
+	\\
+	 & \geq \min \left( \mu_{\tilde{A}_1}(\bar{x}_1), \mu_{\tilde{A}_2}(\bar{x}_2) \right)
+	\\
+	 & > h ~~~~
+	\left( \bar{x}_1 \in ( \tilde{A} )_h, ~ \bar{x}_2 \in ( \tilde{A} )_h ~ \text{なので，} ~ \mu_{\tilde{A}_1}(\bar{x}_1) > h, ~ \mu_{\tilde{A}_2}(\bar{x}_2) > h \right)
+\end{align}
+
+\noindent
+$\mu_{f \left( \tilde{A}_1, \tilde{A}_2 \right)}(y) \geq h$ なので， $y \in \left( f \left( \tilde{A}_1, \tilde{A}_2 \right) \right)_h$ である．
+
+\noindent
+以上から， $\left( f \left( \tilde{A}_1, \tilde{A}_2 \right) \right)_h \supseteq
+	f \left( ( \tilde{A}_1 )_h, ( \tilde{A}_2 )_h \right)$ が示された．
+
+\noindent
+次に， $\left( f \left( \tilde{A}_1, \tilde{A}_2 \right) \right)_h \subseteq
+	f \left( ( \tilde{A}_1 )_h, ( \tilde{A}_2 )_h \right)$ を示す．
+
+\noindent
+$y \in \left( f \left( \tilde{A}_1, \tilde{A}_2 \right) \right)_h$ とする．
+
+\noindent
+拡張原理から， $\mu_{f\left( \tilde{A}_1, \tilde{A}_2 \right)}(y) = \min \left( \mu_{\tilde{A}_1}(\bar{x}_1), \mu_{\tilde{A}_2}(\bar{x}_2) \right)$
+を満たす $\bar{x}_1 \in \tilde{A}_1, \bar{x}_2 \in \tilde{A}_2$ が存在する．
+
+
+\noindent
+$y \in \left( f \left( \tilde{A}_1, \tilde{A}_2 \right) \right)_h$ より， $\mu_{f\left( \tilde{A}_1, \tilde{A}_2 \right)}(y) > h$ なので，
+$\min \left( \mu_{\tilde{A}_1}(\bar{x}_1), \mu_{\tilde{A}_2}(\bar{x}_2) \right) > h$ である．
+
+\noindent
+すなわち， $\mu_{\tilde{A}_1}(\bar{x}_1) > h, \mu_{\tilde{A}_2}(\bar{x}_2) > h$ が成り立ち，
+$\bar{x}_1 \in ( \tilde{A}_1 )_h, \bar{x}_2 \in ( \tilde{A}_2 )_h$ である．
+
+\noindent
+このことから， $y \in f \left( ( \tilde{A}_1 )_h, ( \tilde{A}_2 )_h \right)$ であるといえる．
+
+\noindent
+以上から， $\left( f \left( \tilde{A}_1, \tilde{A}_2 \right) \right)_h \subseteq
+	f \left( ( \tilde{A}_1 )_h, ( \tilde{A}_2 )_h \right)$ が示された．
+
+\noindent
+$\left( f \left( \tilde{A}_1, \tilde{A}_2 \right) \right)_h \supseteq
+	f \left( ( \tilde{A}_1 )_h, ( \tilde{A}_2 )_h \right), \left( f \left( \tilde{A}_1, \tilde{A}_2 \right) \right)_h \subseteq
+	f \left( ( \tilde{A}_1 )_h, ( \tilde{A}_2 )_h \right)$ が成り立つので， $\left( f \left( \tilde{A}_1, \tilde{A}_2 \right) \right)_h =
+	f \left( ( \tilde{A}_1 )_h, ( \tilde{A}_2 )_h \right)$ が成り立つ．
+
+% \noindent
+% $y \in \left( f \left( \tilde{A}_1, \tilde{A}_2 \right) \right)_h$ とする．
+% \begin{align}
+% 	                & \mu_{f \left( \tilde{A}_1, \tilde{A}_2 \right)}(y) > h
+% 	\\
+% 	\Leftrightarrow & \sup_{\left( x_1, x_2 \right) \in f^{-1}(y)}
+% 	\min \left( \mu_{\tilde{A}_1}(x_1), \mu_{\tilde{A}_2}(x_2) \right) > h ~~~~
+% 	\left( y \text{の定義から任意の} y \text{について} f^{-1}(y) \neq \emptyset \text{であることと拡張原理より} \right)
+% 	\\
+% 	\Rightarrow     & \min \left( \mu_{\tilde{A}_1}(\bar{x}_1), \mu_{\tilde{A}_2}(\bar{x}_2) \right) > h ~~~~
+% 	\left( \min \left( \mu_{\tilde{A}_1}(\bar{x}_1), \mu_{\tilde{A}_2}(\bar{x}_2) \right) > \min \left( \mu_{\tilde{A}_1}(x_1), \mu_{\tilde{A}_2}(x_2) \right), ~ \forall \left( x_1, x_2 \right) \in f^{-1}(y), ~ x_1 \in \tilde{A}_1, x_2 \in \tilde{A}_2 \right)
+% 	\\
+% 	\Rightarrow     & \mu_{\tilde{A}_1}(\bar{x}_1) > h ~ \text{かつ} ~ \mu_{\tilde{A}_2}(\bar{x}_2) > h
+% \end{align}
+
+\end{document}
