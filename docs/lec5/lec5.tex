@@ -1,0 +1,33 @@
+\documentclass[uplatex, a4j, 10pt, fleqn, dvipdfmx]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[top=3cm, bottom=3cm, left=1cm, right=1cm]{geometry}
+
+% See: https://tex.stackexchange.com/questions/103885/how-to-type-an-inline-chi-in-latex
+\newcommand{\irchi}[2]{\raisebox{\depth}{$#1\chi$}}
+\DeclareRobustCommand{\rchi}{{\mathpalette\irchi\relax}}
+
+\begin{document}
+
+\begin{center}
+	{\Huge システム計画論 第 5 回 課題}
+\end{center}
+
+\begin{flushright}
+	{\Large \today ~~~~ 29C23002 ~~~ 石川健太郎}
+\end{flushright}
+
+\section*{[ 5a ]}
+
+\begin{equation}
+	N_{\tilde{A}}(\tilde{B}) \geq \Pi_{\tilde{A}}(\tilde{B})
+\end{equation}
+
+\begin{equation}
+	\tilde{B} ~ \text{がクリスプ集合であるとき，} ~~ N_{\tilde{A}}(\tilde{B}) \geq h ~ \Leftrightarrow ~ (\tilde{A})_{1-h} \subseteq [\tilde{B}]_h
+\end{equation}
+
+
+
+\end{document}
