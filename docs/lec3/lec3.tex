@@ -53,83 +53,46 @@ $N = \{ 1, 2, \dots, n \}, ~~ N^- = \{ i \in N ~ | ~ k_i < 0 \}, ~~ N^+ = \{ i \
 \section*{[ 3b ]}
 
 \noindent
-まず， $\left( f \left( \tilde{A}_1, \tilde{A}_2 \right) \right)_h \supseteq
-	f \left( ( \tilde{A}_1 )_h, ( \tilde{A}_2 )_h \right)$ を示す．
-
-\noindent
-$y \in f \left( ( \tilde{A}_1 )_h, ( \tilde{A}_2 )_h \right)$ とする．
-
-\noindent
-$y$ の定義から任意の $y$ に対して $y = f \left( \bar{x}_1, \bar{x}_2 \right)$ を満たす
-$\bar{x}_1 \in ( \tilde{A} )_h, ~ \bar{x}_2 \in ( \tilde{A} )_h$ が存在するので，
+$y \in \left( f \left( \tilde{A}_1, \tilde{A}_2 \right) \right)_h$ のとき，
+$y$ の定義から任意の $y$ に対して $y = f \left( x_1, x_2 \right)$ を満たす
+$x_1 \in \tilde{A}, ~ x_2 \in \tilde{A}$ が存在するので，
 任意の $y$ について $f^{-1}(y) \neq \emptyset$ である．
+\begin{equation}
+	y \in \left( f \left( \tilde{A}_1, \tilde{A}_2 \right) \right)_h
+	\Rightarrow
+	f^{-1}(y) \neq \emptyset
+	\label{fom2-1}
+\end{equation}
 
-\noindent
-よって，拡張原理から次の関係が成り立つ．
 \begin{align}
-	\mu_{f \left( \tilde{A}_1, \tilde{A}_2 \right)}(y)
-	 & = \sup_{\left( x_1, x_2 \right) \in f^{-1}(y)} \min \left( \mu_{\tilde{A}_1}(x_1), \mu_{\tilde{A}_2}(x_2) \right)
+	                & ~ y \in f \left( ( \tilde{A}_1 )_h, ( \tilde{A}_2 )_h \right)
 	\\
-	 & \geq \min \left( \mu_{\tilde{A}_1}(\bar{x}_1), \mu_{\tilde{A}_2}(\bar{x}_2) \right)
+	\Leftrightarrow & ~ \exists \left( \bar{x}_1, \bar{x_2} \right) \in f^{-1}(y); ~~ \bar{x}_1 \in ( \tilde{A}_1 )_h ~~ \text{amd} ~~ \bar{x}_2 \in ( \tilde{A}_2 )_h
 	\\
-	 & > h ~~~~
-	\left( \bar{x}_1 \in ( \tilde{A} )_h, ~ \bar{x}_2 \in ( \tilde{A} )_h ~ \text{なので，} ~ \mu_{\tilde{A}_1}(\bar{x}_1) > h, ~ \mu_{\tilde{A}_2}(\bar{x}_2) > h \right)
+	\Leftrightarrow & ~ \exists \left( \bar{x}_1, \bar{x_2} \right) \in f^{-1}(y); ~~ \mu_{\tilde{A}_1}(\bar{x}_1) > h ~~ \text{amd} ~~ \mu_{\tilde{A}_2}(\bar{x}_2) > h
+	\\
+	\Leftrightarrow & ~ \exists \left( \bar{x}_1, \bar{x_2} \right) \in f^{-1}(y); ~~ \min \left( \mu_{\tilde{A}_1}(\bar{x}_1), \mu_{\tilde{A}_2}(\bar{x}_2) \right) > h
+	\label{fom2-2}
+\end{align}
+
+\begin{align}
+	                & ~ y \in \left( f \left( \tilde{A}_1, \tilde{A}_2 \right) \right)_h
+	\\
+	\Leftrightarrow & ~ \mu_{f\left( \tilde{A}_1, \tilde{A}_2 \right)}(y) > h
+	\\
+	\Leftrightarrow & ~ \sup_{\left( x_1, x_2 \right) \in f^{-1}(y)} \min \left( \mu_{\tilde{A}_1}(x_1), \mu_{\tilde{A}_2}(x_2) \right) > h
+	\qquad \left( \because (\ref{fom2-1}) \text{と拡張原理} \right)
+	\label{fom2-3}
 \end{align}
 
 \noindent
-$\mu_{f \left( \tilde{A}_1, \tilde{A}_2 \right)}(y) \geq h$ なので， $y \in \left( f \left( \tilde{A}_1, \tilde{A}_2 \right) \right)_h$ である．
+任意の $\left( \bar{x}_1, \bar{x_2} \right) \in f^{-1}(y)$ は $\sup_{\left( x_1, x_2 \right) \in f^{-1}(y)} \min \left( \mu_{\tilde{A}_1}(x_1), \mu_{\tilde{A}_2}(x_2) \right)$ よりも小さいので， (\ref{fom2-2}) $~\Leftarrow~$ (\ref{fom2-3}) が成り立つ．
 
 \noindent
-以上から， $\left( f \left( \tilde{A}_1, \tilde{A}_2 \right) \right)_h \supseteq
-	f \left( ( \tilde{A}_1 )_h, ( \tilde{A}_2 )_h \right)$ が示された．
+$\sup$ の定義から，明らかに(\ref{fom2-2}) $~\Rightarrow~$ (\ref{fom2-3}) が成り立つ．
 
 \noindent
-次に， $\left( f \left( \tilde{A}_1, \tilde{A}_2 \right) \right)_h \subseteq
-	f \left( ( \tilde{A}_1 )_h, ( \tilde{A}_2 )_h \right)$ を示す．
-
-\noindent
-$y \in \left( f \left( \tilde{A}_1, \tilde{A}_2 \right) \right)_h$ とする．
-
-\noindent
-拡張原理から， $\mu_{f\left( \tilde{A}_1, \tilde{A}_2 \right)}(y) = \sup_{\left( x_1, x_2 \right) \in f^{-1}(y)} \min \left( \mu_{\tilde{A}_1}(x_1), \mu_{\tilde{A}_2}(x_2) \right)$
-が成り立ち，
-$\mu_{f\left( \tilde{A}_1, \tilde{A}_2 \right)}(y) = \min \left( \mu_{\tilde{A}_1}(\bar{x}_1), \mu_{\tilde{A}_2}(\bar{x}_2) \right)$
-を満たす $\bar{x}_1 \in \tilde{A}_1, \bar{x}_2 \in \tilde{A}_2$ が存在する．
-
-\noindent
-$y \in \left( f \left( \tilde{A}_1, \tilde{A}_2 \right) \right)_h$ より， $\mu_{f\left( \tilde{A}_1, \tilde{A}_2 \right)}(y) > h$ なので，
-$\min \left( \mu_{\tilde{A}_1}(\bar{x}_1), \mu_{\tilde{A}_2}(\bar{x}_2) \right) > h$ である．
-
-\noindent
-すなわち， $\mu_{\tilde{A}_1}(\bar{x}_1) > h, \mu_{\tilde{A}_2}(\bar{x}_2) > h$ が成り立ち，
-$\bar{x}_1 \in ( \tilde{A}_1 )_h, \bar{x}_2 \in ( \tilde{A}_2 )_h$ である．
-
-\noindent
-このことから， $y \in f \left( ( \tilde{A}_1 )_h, ( \tilde{A}_2 )_h \right)$ であるといえる．
-
-\noindent
-以上から， $\left( f \left( \tilde{A}_1, \tilde{A}_2 \right) \right)_h \subseteq
-	f \left( ( \tilde{A}_1 )_h, ( \tilde{A}_2 )_h \right)$ が示された．
-
-\noindent
-$\left( f \left( \tilde{A}_1, \tilde{A}_2 \right) \right)_h \supseteq
-	f \left( ( \tilde{A}_1 )_h, ( \tilde{A}_2 )_h \right), \left( f \left( \tilde{A}_1, \tilde{A}_2 \right) \right)_h \subseteq
-	f \left( ( \tilde{A}_1 )_h, ( \tilde{A}_2 )_h \right)$ が成り立つので， $\left( f \left( \tilde{A}_1, \tilde{A}_2 \right) \right)_h =
-	f \left( ( \tilde{A}_1 )_h, ( \tilde{A}_2 )_h \right)$ が成り立つ．
-
-% \noindent
-% $y \in \left( f \left( \tilde{A}_1, \tilde{A}_2 \right) \right)_h$ とする．
-% \begin{align}
-% 	                & \mu_{f \left( \tilde{A}_1, \tilde{A}_2 \right)}(y) > h
-% 	\\
-% 	\Leftrightarrow & \sup_{\left( x_1, x_2 \right) \in f^{-1}(y)}
-% 	\min \left( \mu_{\tilde{A}_1}(x_1), \mu_{\tilde{A}_2}(x_2) \right) > h ~~~~
-% 	\left( y \text{の定義から任意の} y \text{について} f^{-1}(y) \neq \emptyset \text{であることと拡張原理より} \right)
-% 	\\
-% 	\Rightarrow     & \min \left( \mu_{\tilde{A}_1}(\bar{x}_1), \mu_{\tilde{A}_2}(\bar{x}_2) \right) > h ~~~~
-% 	\left( \min \left( \mu_{\tilde{A}_1}(\bar{x}_1), \mu_{\tilde{A}_2}(\bar{x}_2) \right) > \min \left( \mu_{\tilde{A}_1}(x_1), \mu_{\tilde{A}_2}(x_2) \right), ~ \forall \left( x_1, x_2 \right) \in f^{-1}(y), ~ x_1 \in \tilde{A}_1, x_2 \in \tilde{A}_2 \right)
-% 	\\
-% 	\Rightarrow     & \mu_{\tilde{A}_1}(\bar{x}_1) > h ~ \text{かつ} ~ \mu_{\tilde{A}_2}(\bar{x}_2) > h
-% \end{align}
+よって，(\ref{fom2-2}) $~\Leftrightarrow~$ (\ref{fom2-3}) が成り立つ．
+以上から， $y \in f \left( ( \tilde{A}_1 )_h, ( \tilde{A}_2 )_h \right) \Leftrightarrow y \in \left( f \left( \tilde{A}_1, \tilde{A}_2 \right) \right)_h$ が示された．
 
 \end{document}
