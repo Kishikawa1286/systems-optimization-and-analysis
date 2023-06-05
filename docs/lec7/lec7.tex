@@ -1,0 +1,80 @@
+\documentclass[uplatex, a4j, 10pt, fleqn, dvipdfmx]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[top=3cm, bottom=3cm, left=1cm, right=1cm]{geometry}
+
+% See: https://tex.stackexchange.com/questions/103885/how-to-type-an-inline-chi-in-latex
+\newcommand{\irchi}[2]{\raisebox{\depth}{$#1\chi$}}
+\DeclareRobustCommand{\rchi}{{\mathpalette\irchi\relax}}
+
+\begin{document}
+
+\begin{center}
+	{\Huge システム計画論 第 7 回 課題}
+\end{center}
+
+\begin{flushright}
+	{\Large \today ~~~~ 29C23002 ~~~ 石川健太郎}
+\end{flushright}
+
+\section*{[ 7a ]}
+
+$\tilde{A}, \tilde{B}$ がともにファジィ数であり, 任意の $h \in (0, 1]$ について $[\tilde{A}]_h, [\tilde{B}]_h$ が閉区間になることから, 次が成り立つ.
+
+\begin{equation}
+	\Pi_{\tilde{A}} (\tilde{B}) \geq h \Leftrightarrow [\tilde{A}]_h \cap [\tilde{B}]_h \neq \emptyset
+	\label{fom1}
+\end{equation}
+\begin{equation}
+	N_{\tilde{A}} (\tilde{B}) \geq h \Leftrightarrow \mathrm{cl} (\tilde{A})_{1-h} \subseteq [\tilde{B}]_h
+	\label{fom2}
+\end{equation}
+
+\begin{align}
+	\mu_{[\tilde{B}, +\infty)}(x) \geq h &                                                    & \nonumber                  \\
+	\Leftrightarrow \quad                & \Pi_{\tilde{B}} ((-\infty, x]) \geq h              & (\text{定義より})              \\
+	\Leftrightarrow \quad                & [\tilde{B}]_h \cap [(-\infty, x]]_h \neq \emptyset & (\text{式 (\ref{fom1}) より}) \\
+	\Leftrightarrow \quad                & [\tilde{B}]_h \cap (-\infty, x] \neq \emptyset     &                            \\
+	\Leftrightarrow \quad                & \inf [\tilde{B}]_h \leq x                          & \label{fom5}
+\end{align}
+
+式 (\ref{fom5}) と $\mu_{[\tilde{B}, +\infty)}(x)$ が上半連続であることから, 次が成り立つ.
+\begin{equation}
+	[[\tilde{B}, +\infty)]_h = [\inf [\tilde{B}]_h, +\infty)
+	\label{fom6}
+\end{equation}
+
+\begin{align}
+	N_{\tilde{A}} ([\tilde{B}, +\infty)) \geq h &                                                                       & \nonumber                  \\
+	\Leftrightarrow \quad                       & \mathrm{cl} (\tilde{A})_{1-h} \subseteq [[\tilde{B}, +\infty)]_h      & \text{(式 (\ref{fom2}) より)} \\
+	\Leftrightarrow \quad                       & \mathrm{cl} (\tilde{A})_{1-h} \subseteq [\inf [\tilde{B}]_h, +\infty) & \text{(式 (\ref{fom6}) より)} \\
+	\Leftrightarrow \quad                       & \inf \mathrm{cl} (\tilde{A})_{1-h} \geq \inf [\tilde{B}]_h            & \label{fom7}
+\end{align}
+
+
+\begin{align}
+	\mu_{(-\infty, \tilde{A}(}(x) \geq h &                                                           & \nonumber                  \\
+	\Leftrightarrow \quad                & N_{\tilde{A}} ([ x, \infty )) \geq h                      & \text{(定義より)}              \\
+	\Leftrightarrow \quad                & \mathrm{cl} (\tilde{A})_{1-h} \subseteq [[ x, \infty )]_h & \text{(式 (\ref{fom2}) より)} \\
+	\Leftrightarrow \quad                & \mathrm{cl} (\tilde{A})_{1-h} \subseteq [ x, \infty )     &                            \\
+	\Leftrightarrow \quad                & \inf \mathrm{cl} (\tilde{A})_{1-h} \geq x                 &
+	\label{fom3}
+\end{align}
+
+式 (\ref{fom3}) と $\mu_{(-\infty, \tilde{A}(}(x)$ が上半連続であることから, 次が成り立つ.
+\begin{equation}
+	[(-\infty, \tilde{A}(]_h = (-\infty, \inf \mathrm{cl} (\tilde{A})_{1-h}]
+	\label{fom4}
+\end{equation}
+
+\begin{align}
+	\Pi_{\tilde{B}} ((-\infty, \tilde{A}() \geq h &                                                                                 & \nonumber                  \\
+	\Leftrightarrow \quad                         & [\tilde{B}]_h \cap [(-\infty, \tilde{A}(]_h \neq \emptyset                      & (\text{式 (\ref{fom1}) より}) \\
+	\Leftrightarrow \quad                         & [\tilde{B}]_h \cap (-\infty, \inf \mathrm{cl} (\tilde{A})_{1-h}] \neq \emptyset & (\text{式 (\ref{fom4}) より}) \\
+	\Leftrightarrow \quad                         & \inf [\tilde{B}]_h \leq \inf (\tilde{A})_{1-h}                                  & \label{fom8}
+\end{align}
+
+式 (\ref{fom7}), (\ref{fom8}) より,  $N_{\tilde{A}} ([\tilde{B}, +\infty)) = \Pi_{\tilde{B}} ((-\infty, \tilde{A}()$ が成り立つ.
+
+\end{document}
