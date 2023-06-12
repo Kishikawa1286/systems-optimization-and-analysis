@@ -1,0 +1,62 @@
+\documentclass[uplatex, a4j, 11pt, fleqn, dvipdfmx]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[top=3cm, bottom=3cm, left=1cm, right=1cm]{geometry}
+
+% See: https://tex.stackexchange.com/questions/103885/how-to-type-an-inline-chi-in-latex
+\newcommand{\irchi}[2]{\raisebox{\depth}{$#1\chi$}}
+\DeclareRobustCommand{\rchi}{{\mathpalette\irchi\relax}}
+
+\begin{document}
+
+\begin{center}
+	{\Huge システム計画論 第 8 回 課題}
+\end{center}
+
+\begin{flushright}
+	{\Large \today ~~~~ 29C23002 ~~~ 石川健太郎}
+\end{flushright}
+
+\begin{align}
+	\begin{aligned}
+		\text{maximize} ~~   &
+		\min \left(
+		\mathrm{Nes} \left( c_1 x_1 + c_2 x_2 \geq 450 \right), ~~
+		\mathrm{Pos} \left( c_1 x_1 + c_2 x_2 \geq 530 \right)
+		\right),
+		\\
+		\text{subject to} ~~ &
+		\mathrm{Nes} \left( a_1 x_1 + b_1 x_2 \leq 240 \right) \geq 0.8,
+		\\
+		                     & \mathrm{Nes} \left( a_2 x_1 + b_2 x_2 \leq 400 \right) \geq 0.8,
+		\\
+		                     & \mathrm{Nes} \left( a_3 x_1 + b_3 x_2 \leq 210 \right) \geq 0.8,
+		\\
+		                     & x_1, x_2 \geq 0.
+	\end{aligned}
+	\label{fom-1}
+\end{align}
+
+\begin{align}
+	\tilde{A}_1 & = \langle 2, 0.7 \rangle
+	\label{fom-2}                          \\
+	\tilde{A}_2 & = \langle 4, 1.5 \rangle
+	\label{fom-3}                          \\
+	\tilde{A}_3 & = \langle 1, 0.5 \rangle
+	\label{fom-4}                          \\
+	\tilde{B}_1 & = \langle 3, 0.5 \rangle
+	\label{fom-5}                          \\
+	\tilde{B}_2 & = \langle 2, 0.3 \rangle
+	\label{fom-6}                          \\
+	\tilde{B}_3 & = \langle 3, 0.3 \rangle
+	\label{fom-7}                          \\
+	\tilde{B}_1 & = \langle 5, 1 \rangle
+	\label{fom-8}                          \\
+	\tilde{B}_1 & = \langle 7, 0.7 \rangle
+	\label{fom-9}                          \\
+\end{align}
+
+
+
+\end{document}

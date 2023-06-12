@@ -1,0 +1,158 @@
+\documentclass[uplatex, a4j, 10pt, fleqn, dvipdfmx]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{listings}
+\usepackage{hyperref}
+
+\usepackage[top=3cm, bottom=3cm, left=1cm, right=1cm]{geometry}
+
+\lstset{
+    breakindent = 10pt,
+    basicstyle = \ttfamily\scriptsize,
+    classoffset = 0,
+    framesep = 6pt,
+    stepnumber = 1,
+    numberstyle = \tiny,
+    tabsize = 4,
+}
+
+\renewcommand{\refname}{参考文献}
+
+\begin{document}
+
+\begin{center}
+    {\Huge 知的学習システム論 \quad 中間レポート}
+\end{center}
+
+\begin{flushright}
+    {\qquad 29C23002 \quad 石川健太郎}
+\end{flushright}
+
+\section*{(1)}
+
+gpt-3.5-turbo で動作する 2 つのエージェントに役割を与え,
+それらを対話させることによって複雑なタスクを達成しようという研究がある \cite{ref1}.
+この研究では, User という役割を与えられたエージェントが質問をし,
+もう一方の Assistant という役割を与えられたエージェントが回答するという形で対話を行う.
+この実験ではトークン上限や無限ループなどでうまく行っていないが,
+このようなアプローチは LLM 応用の枠組みの一つとして考えられる.
+
+LLM を伴うエージェントに役割を与えるというアプローチをロボティクスの文脈で考えてみよう.
+単純な LLM との違いは, 物理的な機体が存在するという点である.
+\cite{ref2} のように, LLM による動作生成を行うことで,
+単純な LLM 同士の対話の延長として機体を伴うエージェントの役割に基づく協調動作を行うことができるのではないだろうか.
+
+\section*{(2)}
+
+\subsection*{1. 長文の要約}
+
+次のような手続きで Open AI API の Chat GPT を使った長文の要約を行う．
+解説や講演の動画からその要約文を作成して, それを Chat GPT の Context として与えるという使い方をしている.
+
+\begin{enumerate}
+    \item
+          解説や講演の動画の音声のみを取り出す.
+    \item
+          音声ファイルをテキストに変換する．
+          これには Microsoft Azure の Speech to Text API を用いている．
+    \item
+          テキストをチャンクに分割する.
+          Open AI API の gpt-3.5-turbo はトークン数の上限が 4097 なので, それよりもある程度小さくなるように 2500 文字以下に分割する.
+    \item
+          各チャンクに対して要約を行う.
+          これは次のようなプロンプトを与えている.
+          \begin{lstlisting}[caption = 文章要約のプロンプト, label = program1]
+As a highly skilled translator capable of understanding every language,
+your task is to summarize the text that will be enclosed within """ marks.
+This text will be in Markdown format and may only be a partial representation
+if the original content is too long.
+Your summary should be in English, regardless of the language of the original text,
+and it should not exceed 200 words.
+If the meaning of the text is unclear, provide a brief explanation.
+The language of the original text should be indicated in parentheses at the beginning of the summary,
+for example, "(English) ...".
+If the text includes program code, provide a brief description of the input, output,
+and the primary objective of the code.
+
+"""
+${text}
+"""
+          \end{lstlisting}
+\end{enumerate}
+
+他にも, Web サイトの html を整形して Markdown 形式にするなどして要約文を作成することができる.
+また, 3. 4. を再帰的に実行する事によって, チャンク数を更に減らした短い要約文にすることができる.
+
+ソースコードは以下のリポジトリに公開している.\\
+\url{https://github.com/Kishikawa1286/long-text-summarizer/tree/main}
+
+\subsection*{2. 言葉の対応表を指定した翻訳}
+
+言葉の対応表を指定して翻訳を行うプロンプトを作成した.
+次のような 2 段階の手続きで翻訳を行う. これは Chain of Thought \cite{ref3} の一種であるといえる.
+
+\begin{enumerate}
+    \item
+          OCR (Mathpix を利用している) によって PDF からテキストを抽出する.
+          そのテキストを加工し, Markdown 形式にする.
+    \item
+          テキストをチャンクに分割する.
+          要約タスクと同様のチャンクの長さにする.
+    \item 対応表を指定せずに翻訳を行う.
+          これは次のようなプロンプトを用いる.
+          \begin{lstlisting}[caption = 文章翻訳のプロンプト, label = program2]
+Step 1:
+
+Your task is to translate the given document into ${language}.
+Keep names and place names in their original language.
+Do not wrap the translated text in Markdown code blocks.
+
+Document
+"""
+${document}
+"""
+          \end{lstlisting}
+    \item 翻訳の手がかりとる単語の対応表を指定して翻訳を行う.
+          対応表は通常コロン区切りで ``English: 英語'' というように与えている.
+          \begin{lstlisting}[caption = 翻訳改善のプロンプト, label = program3]
+Step 2 (following the response of Step 1):
+
+Now, to improve your translation, we provide you with the following Word Correspondence List.
+For these words, the preferred translation is as per the list.
+Keep names and place names in their original language.
+Do not wrap the translated text in Markdown code blocks.
+
+Word Correspondence List
+"""
+${correspondence_list}
+"""
+
+Your translated document:
+"""
+${step1_output}
+"""
+
+With this in mind, please revise and optimize your translation.
+          \end{lstlisting}
+\end{enumerate}
+
+以下に \cite{ref2} を入力としたときの翻訳文を示す.\\
+\url{https://github.com/Kishikawa1286/papers-2023/blob/main/contents/202306/CAMEL%3A%20Communicative%20Agents%20for%20%22Mind%22%20Exploration%20of%20Large%20Scale%20Language%20Model%20Society/tex/translated.md}
+
+\begin{thebibliography}{99}
+    \bibitem{ref1} G. Li et al,
+    \textit{CAMEL: Communicative Agents for "Mind" Exploration of Large Scale Language Model Society},
+    arXiv:2303.17760 (2023),
+    \url{https://arxiv.org/abs/2303.17760}.
+    \bibitem{ref2} J. Liang et al,
+    \textit{Code as Policies: Language Model Programs for Embodied Control},
+    arXiv:2209.07753 (2022),
+    \url{https://arxiv.org/abs/2209.07753}.
+    \bibitem{ref3} J. Wei et al,
+    \textit{Chain-of-Thought Prompting Elicits Reasoning in Large Language Models},
+    arXiv:2201.11903(2022),
+    \url{https://arxiv.org/abs/2201.11903}.
+\end{thebibliography}
+
+\end{document}
