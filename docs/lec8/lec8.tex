@@ -20,43 +20,137 @@
 
 \begin{align}
 	\begin{aligned}
-		\text{maximize} ~~   &
-		\min \left(
+		\text{maximize} ~~
+		 & \min \left(
 		\mathrm{Nes} \left( c_1 x_1 + c_2 x_2 \geq 450 \right), ~~
 		\mathrm{Pos} \left( c_1 x_1 + c_2 x_2 \geq 530 \right)
 		\right),
 		\\
-		\text{subject to} ~~ &
-		\mathrm{Nes} \left( a_1 x_1 + b_1 x_2 \leq 240 \right) \geq 0.8,
+		\text{subject to} ~~
+		 & \mathrm{Nes} \left( a_1 x_1 + b_1 x_2 \leq 240 \right) \geq 0.8,
 		\\
-		                     & \mathrm{Nes} \left( a_2 x_1 + b_2 x_2 \leq 400 \right) \geq 0.8,
+		 & \mathrm{Nes} \left( a_2 x_1 + b_2 x_2 \leq 400 \right) \geq 0.8,
 		\\
-		                     & \mathrm{Nes} \left( a_3 x_1 + b_3 x_2 \leq 210 \right) \geq 0.8,
+		 & \mathrm{Nes} \left( a_3 x_1 + b_3 x_2 \leq 210 \right) \geq 0.8,
 		\\
-		                     & x_1, x_2 \geq 0.
+		 & x_1, x_2 \geq 0.
 	\end{aligned}
 	\label{fom-1}
 \end{align}
-
 \begin{align}
-	\tilde{A}_1 & = \langle 2, 0.7 \rangle
-	\label{fom-2}                          \\
-	\tilde{A}_2 & = \langle 4, 1.5 \rangle
-	\label{fom-3}                          \\
-	\tilde{A}_3 & = \langle 1, 0.5 \rangle
-	\label{fom-4}                          \\
-	\tilde{B}_1 & = \langle 3, 0.5 \rangle
-	\label{fom-5}                          \\
-	\tilde{B}_2 & = \langle 2, 0.3 \rangle
-	\label{fom-6}                          \\
-	\tilde{B}_3 & = \langle 3, 0.3 \rangle
-	\label{fom-7}                          \\
-	\tilde{B}_1 & = \langle 5, 1 \rangle
-	\label{fom-8}                          \\
-	\tilde{B}_1 & = \langle 7, 0.7 \rangle
-	\label{fom-9}                          \\
+	\begin{aligned}
+		 & \tilde{A}_1 = \langle 2, 0.7 \rangle,
+		 &                                       & \tilde{A}_2 = \langle 4, 1.5 \rangle,
+		 &                                       & \tilde{A}_3 = \langle 1, 0.5 \rangle,
+		 &                                       & \tilde{B}_1 = \langle 3, 0.5 \rangle,
+		 &                                       & \tilde{B}_2 = \langle 2, 0.3 \rangle,
+		 &                                       & \tilde{B}_3 = \langle 3, 0.3 \rangle,
+		\\
+		 & \tilde{C}_1 = \langle 5, 1 \rangle,
+		 &                                       & \tilde{C}_1 = \langle 7, 0.7 \rangle.
+	\end{aligned}
+	\label{fom-2}
 \end{align}
 
+\begin{align}
+	\mathrm{Nes} \left( a_1 x_1 + b_1 x_2 \leq 240 \right) & \geq 0.8
+	\nonumber                                                                                      \\
+	(2 x_1 + 3 x_2) + 0.8 (0.7 x_1 + 0.5 x_2)              & \leq 240
+	                                                       & \left( \because \eqref{fom-2} \right)
+	\nonumber                                                                                      \\
+	2.56 x_1 + 3.4 x_2                                     & \leq 240
+	\label{fom-3}
+\end{align}
+\begin{align}
+	\mathrm{Nes} \left( a_2 x_1 + b_2 x_2 \leq 400 \right) \geq 0.8
+	\nonumber                                                                         \\
+	(4 x_1 + 2 x_2) + 0.8 (1.5 x_1 + 0.3 x_2) & \leq 400
+	                                          & \left( \because \eqref{fom-2} \right)
+	\nonumber                                                                         \\
+	5.2 x_1 + 2.24 x_2                        & \leq 400
+	\label{fom-4}
+\end{align}
+\begin{align}
+	\mathrm{Nes} \left( a_3 x_1 + b_3 x_2 \leq 210 \right) \geq 0.8
+	\nonumber                                                                       \\
+	(x_1 + 3 x_2) + 0.8 (0.5 x_1 + 0.3 x_2) & \leq 210
+	                                        & \left( \because \eqref{fom-2} \right)
+	\nonumber                                                                       \\
+	1.4 x_1 + 3.24 x_2                      & \leq 210
+	\label{fom-5}
+\end{align}
 
+$h_N \leq \mathrm{Nes} \left( c_1 x_1 + c_2 x_2 \geq 450 \right), ~~ h_P \leq \mathrm{Pos} \left( c_1 x_1 + c_2 x_2 \geq 530 \right), ~~ h = \min(h_N, h_P)$ とする.
+\begin{align}
+	\mathrm{Nes} \left( c_1 x_1 + c_2 x_2 \geq 450 \right) \geq h_N
+	\nonumber                                                                              \\
+	(5 x_1 + 7 x_2) - h_N (x_1 + 0.7 x_2) & \geq 450
+	                                      & \left( \because \eqref{fom-2} \right)
+	\nonumber                                                                              \\
+	h_N                                   & \leq \frac{5 x_1 + 7 x_2 - 450}{x_1 + 0.7 x_2}
+	\label{fom-6}
+\end{align}
+\begin{align}
+	\mathrm{Pos} \left( c_1 x_1 + c_2 x_2 \geq 530 \right) \geq h_P
+	\nonumber                                                                                  \\
+	(6 x_1 + 7.7 x_2) - h_P (x_1 + 0.7 x_2) & \geq 530
+	                                        & \left( \because \eqref{fom-2} \right)
+	\nonumber                                                                                  \\
+	h_P                                     & \leq \frac{6 x_1 + 7.7 x_2 - 530}{x_1 + 0.7 x_2}
+	\label{fom-7}
+\end{align}
+
+$h \leq h_N, ~~ h \leq h_P$ と \eqref{fom-3} $\sim$ \eqref{fom-7} より, \eqref{fom-1} は以下のように書き換えられる.
+\begin{align}
+	\begin{aligned}
+		\text{maximize} ~~
+		 & h,
+		\\
+		\text{subject to} ~~
+		 & \frac{5 x_1 + 7 x_2 - 450}{x_1 + 0.7 x_2} \geq h,
+		\\
+		 & \frac{6 x_1 + 7.7 x_2 - 530}{x_1 + 0.7 x_2} \geq h,
+		\\
+		 & 2.56 x_1 + 3.4 x_2 \leq 240,
+		\\
+		 & 5.2 x_1 + 2.24 x_2 \leq 400,
+		\\
+		 & 1.4 x_1 + 3.24 x_2 \leq 210,
+		\\
+		 & x_1, x_2 \geq 0.
+	\end{aligned}
+	\label{fom-8}
+\end{align}
+
+\eqref{fom-8} において $t = \frac{1}{x_1 + 0.7 x_2}, ~~ z_i = x_i t, (i = 1, 2)$ とすると次の式が得られる.
+\begin{align}
+	\begin{aligned}
+		\text{maximize} ~~
+		 & h,
+		\\
+		\text{subject to} ~~
+		 & z_1 + 0.7 z_2 = 1
+		\\
+		 & 5 z_1 + 7 z_2 - 450 t \geq h,
+		\\
+		 & 6 z_1 + 7.7 z_2 - 530 t \geq h,
+		\\
+		 & 2.56 z_1 + 3.4 z_2 \leq 240 t,
+		\\
+		 & 5.2 z_1 + 2.24 z_2 \leq 400 t,
+		\\
+		 & 1.4 z_1 + 3.24 z_2 \leq 210 t,
+		\\
+		 & z_1, z_2, t, h \geq 0.
+	\end{aligned}
+	\label{fom-9}
+\end{align}
+
+$5 z_1 + 7 z_2 - 450 t \geq h, ~~ 6 z_1 + 7.7 z_2 - 530 t \geq h$ は単に変数変換をしただけである.
+
+非負制約を除く残りの制約式は両辺に $t$ をかけて $z_1, z_2$ についての式に変形している.
+これらは $t = z_1 + 0.7 z_2 = 1$ という制約のもとで, \eqref{fom-8} 中の元の制約と同値である.
+
+以上のように, \eqref{fom-1}, \eqref{fom-2} は LP 問題 \eqref{fom-9} として書くことができる.
 
 \end{document}
