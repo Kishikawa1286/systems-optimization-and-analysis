@@ -1,0 +1,156 @@
+\documentclass[uplatex, a4j, 11pt, fleqn, dvipdfmx]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage[top=3cm, bottom=3cm, left=1cm, right=1cm]{geometry}
+
+\parindent = 0pt
+
+\newcommand{\substk}[2]{%
+	#1 \atop \vphantom{#1} #2
+}
+
+\begin{document}
+
+\begin{center}
+	{\Huge システム計画論 第 9 回 課題}
+\end{center}
+
+\begin{flushright}
+	{\Large \today ~~~~ 29C23002 ~~~ 石川健太郎}
+\end{flushright}
+
+
+ファジィ数 $\tilde{C}_j$ のメンバシップ関数 $\mu_{\tilde{C}_j} (c)$ は次のように定められている.
+\begin{equation}
+	\mu_{\tilde{C}_j} (c)  = \exp \left( - \frac{( c - c_j^c )^2}{w_j^2} \right)
+	\label{eq-1}
+\end{equation}
+また, ベクトル$\bm{c}$ のメンバシップ関数 $\mu_{C} (\bm{c})$ を次のように定める.
+\begin{equation}
+	\mu_{C} (\bm{c}) = \min_{j \in \{1,2,\dots,n\}} \mu_{\tilde{C}_j} (c_j), \quad
+	\bm{c} = \left( c_1, c_2, \dots, c_n \right)^\mathrm{T}
+	\label{eq-2}
+\end{equation}
+
+あるクリスプな $\bm{x}, \bm{c}$ について, リグレット $r(\bm{x}; \bm{c})$ は次のように書ける.
+\begin{equation}
+	r(\bm{x}; \bm{c}) = \max \left\{ \bm{c}^\mathrm{T} \bm{y} -  \bm{c}^\mathrm{T} \bm{x} ~ | ~ \bm{e}^\mathrm{T} \bm{y} = 1, ~~ \bm{y} \geq \bm{0} \right\}
+	\label{eq-3}
+\end{equation}
+ただし, $\bm{e}$ はすべての要素が 1 のベクトルである.
+
+式 \eqref{eq-3} の式の非負条件を除く制約条件は $\bm{e}^\mathrm{T} \bm{y} = 1$ の 1 つだけなので, 基底変数の数は 1 つである.
+すなわち, $\bm{y}$ は 1 箇所のみが 1 であり, 他の要素は 0 のベクトルである.
+よって, 式 \eqref{eq-3} は次のように書き直すことができる.
+\begin{equation}
+	r(\bm{x}; \bm{c}) = \max_{i \in \{1,2,\dots,n\}} c_i  - \bm{c}^\mathrm{T} \bm{x}
+	\label{eq-4}
+\end{equation}
+
+拡張原理から, リグレット $R(x)$ のメンバシップ関数 $\mu_{R(x)}(r)$ は次のように書ける.
+\begin{equation}
+	\mu_{R(\bm{x})}(r) = \sup \left\{ \mu_{C} (\bm{c}) ~ | ~ r = r(\bm{x}; \bm{c}) \right\}
+	\label{eq-5}
+\end{equation}
+
+リグレット $R(x)$ が $z$ 以下となる必然性 $N_{R({\bm{x}})}\left( \{ r ~ | ~ r \leq z \} \right)$ が $h_0$ 以上となるような $z$ を最小化するモデル (満足水準最適化モデル) は次のように書ける.
+\begin{align}
+	\begin{aligned}
+		\text{minimize} ~   & ~ z,                                                             \\
+		\text{subject to} ~ & ~ N_{R({\bm{x}})}\left( \{ r ~ | ~ r \leq z \} \right) \geq h_0, \\
+		                    & ~ \sum_{j = 1}^{n} x_j = 1,                                      \\
+		                    & ~ x_j \geq 0, ~ j = 1, 2, \dots, n.
+	\end{aligned}
+	\label{eq-6}
+\end{align}
+
+\begin{align}
+	N_{R({\bm{x}})}\left( \{ r ~ | ~ r \leq z \} \right) & = \inf_{r > z} \left( 1 - \mu_{R(\bm{x})}(r) \right) \quad \left( \text{必然性の定義} \right) \nonumber                                                               \\
+	                                                     & = \inf_{r > z} \left( 1 - \sup_{\substk{\bm{c}}{r = r(\bm{x}; \bm{c})}} \mu_{C} (\bm{c}) \right) \quad \left( \text{式} \eqref{eq-5} \text{より} \right) \nonumber \\
+	                                                     & = \inf_{\substk{\bm{c}}{r(\bm{x}; \bm{c}) > z}} \left( 1 - \mu_{C}(\bm{c}) \right)
+	\label{eq-7}
+\end{align}
+
+式 \eqref{eq-7} から, $N_{R({\bm{x}})}\left( \{ r ~ | ~ r \leq z \} \right) \geq h_0$ を次のように書き換えることができる.
+\begin{equation}
+	\mu_{C}(\bm{c}) > 1 - h_0 ~~ \Rightarrow ~~	r(\bm{x}; \bm{c}) \leq z
+	\label{eq-8}
+\end{equation}
+レベル集合を使って書き直すと次のようになる.
+\begin{align}
+	\begin{aligned}
+		 & \max_{\bm{c} \in [C]_{1 - h_0}} r(\bm{x}; \bm{c}) \leq z,                   \\
+		 & [C]_{1 - h_0} = \left\{ \bm{c} ~ | ~ \mu_{C}(\bm{c}) \geq 1 - h_0 \right\}.
+	\end{aligned}
+	\label{eq-9}
+\end{align}
+
+\begin{align}
+	\mu_{C}(\bm{c})                                       & \geq 1 - h_0 \nonumber                                                                   \\
+	\min_{j \in \{1,2,\dots,n\}} \mu_{\tilde{C}_j} (c_j)  & \geq 1 - h_0 \quad \left( \text{式} \eqref{eq-2} \text{より} \right) \nonumber              \\
+	\mu_{\tilde{C}_j} (c_j)                               & \geq 1 - h_0, ~~ j = 1, 2, \dots, n \nonumber                                            \\
+	\exp \left( - \frac{( c_j - c_j^c )^2}{w_j^2} \right) & \geq 1 - h_0, ~~ j = 1, 2, \dots, n\quad \left( \eqref{eq-1} \text{より} \right) \nonumber \\
+	c_j^c - w_j \sqrt{- \ln (1 - h_0)} \leq c_j           & \leq c_j^c + w_j \sqrt{- \ln (1 - h_0)}, ~~ j = 1, 2, \dots, n
+	\label{eq-10}
+\end{align}
+$[C]_{1 - h_0}$ は $n$ 次元直方体になっている.
+
+以上の議論から, 数理計画問題 \eqref{eq-6} は次のように書ける.
+\begin{align}
+	\begin{aligned}
+		\text{minimize} ~   & ~ z,                                                                               \\
+		\text{subject to} ~ & ~ \max_{\bm{c} \in [C]_{1 - h_0}} r(\bm{x}; \bm{c}) \leq z, ~~ i = 1, 2, \dots, n, \\
+		                    & ~ \sum_{j = 1}^{n} x_j = 1,                                                        \\
+		                    & ~ x_j \geq 0, ~ j = 1, 2, \dots, n.
+	\end{aligned}
+	\label{eq-11}
+\end{align}
+
+\begin{align}
+	\max_{\bm{c} \in [C]_{1 - h_0}} r(\bm{x}; \bm{c})                                                            & \leq z \nonumber                                                      \\
+	\max_{\bm{c} \in [C]_{1 - h_0}} \left( - \bm{c}^\mathrm{T} \bm{x} + \max_{i \in \{1,2,\dots,n\}} c_i \right) & \leq z \quad \left( \text{式} \eqref{eq-4} \text{より} \right) \nonumber \\
+	\max_{i \in \{1,2,\dots,n\}} \max_{\bm{c} \in [C]_{1 - h_0}} \left( - \bm{c}^\mathrm{T} \bm{x} + c_i \right) & \leq z \nonumber                                                      \\
+	\max_{\bm{c} \in [C]_{1 - h_0}} \left( - \bm{c}^\mathrm{T} \bm{x} + c_i \right)                              & \leq z, ~~ i = 1, 2, \dots, n
+	\label{eq-12}
+\end{align}
+
+次のように $F_i(\bm{c})$ を定める.
+\begin{equation}
+	F_i(\bm{c}) = - \bm{c}^\mathrm{T} \bm{x} + c_i
+	\label{eq-13}
+\end{equation}
+\begin{equation}
+	\frac{\partial F_i}{\partial c_j} = \begin{cases}
+		1 - x_j, & \text{if } i = j,    \\
+		- x_j,   & \text{if } i \neq j.
+	\end{cases}
+	\label{eq-14}
+\end{equation}
+\eqref{eq-11} の制約の下で, $1 - x_j \geq 0, ~~ - x_j \leq 0, ~~ j  = 1, 2, \dots, n$ である.
+
+$[C]_{1 - h_0}$ が $n$ 次元直方体であることと $\frac{\partial F_i}{\partial c_j}$ の 0 との大小関係から, $\bm{c} \in [C]_{1 - h_0}$ のとき, $F_i(\bm{c})$ は $c_i$ が最大で, $c_j,~ j \neq i$ が最小の $\bm{c}$ で最小値をとる.
+式 \eqref{eq-10}, と合わせて各 $i$ について次が成り立つことがわかる.
+\begin{align}
+	\max_{\bm{c} \in [C]_{1 - h_0}} \left( - \bm{c}^\mathrm{T} \bm{x} + c_i \right)                                                                      & \leq z \nonumber     \\
+	- \left( c_i^c x_i + w_i x_i g_0 + \sum_{\substk{j = 1}{j \neq i}}^n \left( c_j^c x_j - w_j x_j g_0 \right) \right) + \left( c_i^c + w_i g_0 \right) & \leq z \nonumber     \\
+	- g_0 \left( w_i x_i - \sum_{\substk{j = 1}{j \neq i}}^n w_j x_j  \right) - \sum_{j = 1}^n c_j^c x_j + c_i^c + g_0 w_i                               & \leq z \nonumber     \\
+	g_0 \left( w_i x_i - \sum_{\substk{j = 1}{j \neq i}}^n w_j x_j  \right) + \sum_{j = 1}^n c_j^c x_j + z                                               & \geq c_i^c + g_0 w_i
+	\label{eq-15}
+\end{align}
+ただし, $g_0 = \sqrt{- \ln ( 1 - h_0 )}$ である.
+
+式 \eqref{eq-15} を 数理計画問題 \eqref{eq-11} に代入すると, 次のようになる.
+\begin{align}
+	\begin{aligned}
+		\text{minimize} ~   & ~ z,                                                                                                                                                                                            \\
+		\text{subject to} ~ & ~ \sqrt{- \ln ( 1 - h_0 )} \left( w_i x_i - \sum_{\substk{j = 1}{j \neq i}}^n w_j x_j  \right) + \sum_{j = 1}^n c_j^c x_j + z \geq c_i^c + \sqrt{- \ln ( 1 - h_0 )} w_i, ~~ i = 1, 2, \dots, n, \\
+		                    & ~ \sum_{j = 1}^{n} x_j = 1,                                                                                                                                                                     \\
+		                    & ~ x_j \geq 0, ~ j = 1, 2, \dots, n.
+	\end{aligned}
+	\label{eq-16}
+\end{align}
+数理計画問題 \eqref{eq-6} は, 線形計画問題 \eqref{eq-16} と等価である.
+
+\end{document}
