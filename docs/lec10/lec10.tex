@@ -1,0 +1,78 @@
+\documentclass[uplatex, a4j, 10pt, fleqn, dvipdfmx]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage[top=3cm, bottom=3cm, left=1cm, right=1cm]{geometry}
+
+\parindent = 0pt
+
+\newcommand{\substk}[2]{%
+	#1 \atop \vphantom{#1} #2
+}
+
+\begin{document}
+
+\begin{center}
+	{\Huge システム計画論 第 10 回 課題}
+\end{center}
+
+\begin{flushright}
+	{\Large \today ~~~~ 29C23002 ~~~ 石川健太郎}
+\end{flushright}
+
+$a = \mu_A(x), ~ b = \mu_B(y)$ とおく.
+
+\section*{(1)}
+
+\begin{align}
+	\mu_{B^{'}}(y)
+	 & = \sup_{x} \min \left( \sqrt{a}, ~ F_1 \left( a, b \right) \right) \nonumber                                                                                                                                       \\
+	 & = \sup_{a \in [0, 1]} \min \left( \sqrt{a}, ~ \max \left( \min \left( a, b \right), 1 - a \right) \right) \nonumber                                                                                                \\
+	 & = \max \left( \sup_{\substk{a}{\min \left( a, b \right) \leq 1 - a}} \min \left(\sqrt{a}, 1 - a \right), ~ \sup_{\substk{a}{\min \left( a, b \right) > 1 - a}} \min \left(\sqrt{a}, a, b \right) \right) \nonumber \\
+	 & = \max \left( \sup_{\substk{a}{\min \left( a, b \right) \leq 1 - a}} \min \left(\sqrt{a}, 1 - a \right), ~ \sup_{\substk{a}{\min \left( a, b \right) > 1 - a}} \min \left(a, b \right) \right) \nonumber           \\
+	 & = \max \left( \sup_{\substk{a}{\min \left( a, b \right) \leq 1 - a}} \min \left(\sqrt{a}, 1 - a \right), ~ b \right) \qquad (\because a \in [0, 1])
+	\label{eq:1-1}
+\end{align}
+\begin{align}
+	\sqrt{a} & = 1 - a \nonumber                                                  \\
+	a        & = (1 - a)^2 \nonumber                                              \\
+	a        & = \frac{-1 + \sqrt{5}}{2} \qquad \left( \because a \geq 0  \right)
+	\label{eq:1-2}
+\end{align}
+式 \eqref{eq:1-1}, \eqref{eq:1-2} より, 次が成り立つ.
+\begin{equation}
+	\mu_{B^{'}}(y) = \max \left( \frac{-1 + \sqrt{5}}{2}, ~ \mu_B(y) \right)
+\end{equation}
+
+\section*{(2)}
+
+\begin{align}
+	\mu_{B^{'}}(y)
+	 & = \sup_{x} \min \left( a^2, ~ F_4 \left( a, b \right) \right) \nonumber                       \\
+	 & = \sup_{a \in [0, 1]} \min \left( a^2, ~ \min \left( 1, ~ 1 - a + b \right) \right) \nonumber \\
+	 & = \sup_{a \in [0, 1]} \min \left( a^2, ~  1 - a + b \right)\nonumber                          \\
+	\label{eq:2-1}
+\end{align}
+\begin{align}
+	a^2 & = 1 - a + b \nonumber                                                               \\
+	a   & = \frac{-1 + \sqrt{ 4b + 5 }}{2} \qquad \left( \because a \geq 0  \right) \nonumber \\
+	a^2 & = \frac{2b + 3 - \sqrt{4b + 5}}{2}
+	\label{eq:2-2}
+\end{align}
+式 \eqref{eq:2-1}, \eqref{eq:2-2} より, 次が成り立つ.
+\begin{equation}
+	\mu_{B^{'}}(y) = \frac{2\mu_B(y) + 3 - \sqrt{4\mu_B(y) + 5}}{2}
+\end{equation}
+
+\section*{(3)}
+
+\begin{align}
+	\mu_{B^{'}}(y)
+	 & = \sup_{x} \min \left( \sqrt{a}, ~ F_4 \left( a, b \right) \right) \nonumber             \\
+	 & = \sup_{a \in [0, 1]} \min \left( \sqrt{a}, ~ \min \left( a, b \right) \right) \nonumber \\
+	 & = \sup_{a \in [0, 1]} \min \left( a, b \right) \qquad (\because a \in [0, 1]) \nonumber  \\
+	 & = b = \mu_B(y)
+\end{align}
+
+\end{document}
